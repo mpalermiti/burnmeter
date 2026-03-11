@@ -151,9 +151,10 @@
         .comparison {
             padding: 140px 0;
             background: var(--off-white);
-            margin: 0 -100vw;
-            padding-left: 100vw;
-            padding-right: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding-left: calc(50vw - 50%);
+            padding-right: calc(50vw - 50%);
         }
 
         .comparison-inner {
@@ -334,9 +335,10 @@
         .install {
             padding: 140px 0;
             background: var(--off-white);
-            margin: 0 -100vw;
-            padding-left: 100vw;
-            padding-right: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding-left: calc(50vw - 50%);
+            padding-right: calc(50vw - 50%);
         }
 
         .install-inner {
@@ -454,24 +456,28 @@
 
         /* Mobile Responsive - High Craft */
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
             .container {
-                padding: 0 24px;
+                padding: 0 20px;
             }
 
             .hero {
-                min-height: 80vh;
-                padding: 60px 0;
+                min-height: 85vh;
+                padding: 80px 0 60px;
             }
 
             .hero-amount {
-                font-size: 72px;
+                font-size: 80px;
                 margin-bottom: 32px;
             }
 
             .hero-text,
             .hero-subtext {
-                font-size: 24px;
-                margin-bottom: 12px;
+                font-size: 22px;
+                margin-bottom: 8px;
             }
 
             .hero-subtext {
@@ -479,103 +485,137 @@
             }
 
             .cta-primary {
-                padding: 18px 40px;
+                padding: 18px 32px;
                 font-size: 17px;
                 width: 100%;
+                max-width: 320px;
                 text-align: center;
             }
 
             .comparison {
-                padding: 100px 0;
+                padding: 80px 0;
             }
 
             .comparison-inner {
-                padding: 0 24px;
+                padding: 0 20px;
             }
 
             .tabs-visual {
-                height: 80px;
-                gap: 4px;
+                height: 100px;
+                gap: 5px;
             }
 
-            .tab:nth-child(n+9) {
+            .tab {
+                min-width: 40px;
+            }
+
+            .tab:nth-child(n+7) {
                 display: none;
             }
 
+            .tab::before {
+                top: 6px;
+                left: 6px;
+                right: 6px;
+                height: 2px;
+            }
+
             .time-waste {
-                font-size: 16px;
+                font-size: 15px;
                 margin-bottom: 60px;
+            }
+
+            .arrow-down {
+                margin: 48px 0;
             }
 
             .claude-convo {
-                padding: 24px;
-                font-size: 14px;
+                padding: 20px;
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            .time-saved {
+                font-size: 15px;
+                margin-top: 24px;
             }
 
             .value-prop {
-                padding: 100px 0;
+                padding: 80px 0;
             }
 
             .value-headline {
-                font-size: 36px;
+                font-size: 32px;
                 margin-bottom: 60px;
+                line-height: 1.2;
             }
 
             .value-arrow {
                 display: block;
-                margin: 16px 0;
-                font-size: 28px;
+                margin: 12px 0;
+                font-size: 24px;
             }
 
             .platforms {
-                padding: 80px 0;
+                padding: 60px 0;
             }
 
             .platforms-list {
-                font-size: 17px;
-                gap: 24px 16px;
+                font-size: 16px;
+                gap: 20px 12px;
             }
 
             .install {
-                padding: 100px 0;
+                padding: 80px 0;
             }
 
             .install-inner {
-                padding: 0 24px;
+                padding: 0 20px;
             }
 
             .install-headline {
-                font-size: 32px;
-                margin-bottom: 40px;
+                font-size: 28px;
+                margin-bottom: 32px;
             }
 
             pre {
-                font-size: 13px;
-                padding: 24px;
-                line-height: 1.7;
+                font-size: 12px;
+                padding: 20px;
+                line-height: 1.6;
+                border-radius: 8px;
+            }
+
+            .install-note {
+                font-size: 14px;
+                margin-top: 24px;
             }
 
             .final-cta {
-                padding: 120px 0;
+                padding: 100px 0;
             }
 
             .final-headline {
-                font-size: 40px;
+                font-size: 36px;
+                line-height: 1.15;
             }
 
             .final-subtext {
-                font-size: 18px;
-                margin-bottom: 48px;
+                font-size: 17px;
+                margin-bottom: 40px;
             }
 
             footer {
-                padding: 60px 0 48px;
+                padding: 60px 0 40px;
             }
 
             .footer-content {
                 flex-direction: column;
                 text-align: center;
-                gap: 12px;
+                gap: 8px;
+            }
+
+            .footer-link {
+                font-size: 14px;
             }
         }
 
@@ -586,19 +626,28 @@
 
             .hero-text,
             .hero-subtext {
-                font-size: 22px;
+                font-size: 20px;
+            }
+
+            .tabs-visual {
+                height: 80px;
+                gap: 4px;
+            }
+
+            .tab {
+                min-width: 35px;
             }
 
             .value-headline {
-                font-size: 28px;
+                font-size: 26px;
             }
 
             .final-headline {
-                font-size: 32px;
+                font-size: 30px;
             }
 
             .install-headline {
-                font-size: 28px;
+                font-size: 24px;
             }
         }
     </style>
