@@ -1,10 +1,12 @@
 # 🔥 burnmeter
 
-**Stop logging into 11 platform dashboards. Know your burn rate in one question.**
+> **Know your burn. Build with confidence.**
 
-Multi-cloud cost aggregator MCP server that connects Claude Code to your entire infrastructure stack. Built for indie builders shipping fast while watching their runway.
+Stop logging into 11 platform dashboards. Track infrastructure costs across Vercel, Neon, OpenAI, and 8 other platforms via Claude Code. Ask one question, get your total burn rate.
 
 🌐 **[mpalermiti.github.io/burnmeter](https://mpalermiti.github.io/burnmeter/)**
+
+Multi-cloud cost aggregator MCP server for indie builders shipping fast while watching their runway.
 
 ---
 
