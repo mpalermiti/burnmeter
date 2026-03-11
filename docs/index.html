@@ -331,31 +331,45 @@
 
         /* Platforms */
         .platforms {
-            padding: 100px 0;
+            padding: 80px 0 100px;
         }
 
-        .platforms-list {
+        .platforms-header {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--charcoal-light);
+            margin-bottom: 40px;
+        }
+
+        .platforms-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 32px 24px;
+            gap: 16px;
             justify-content: center;
-            font-size: 20px;
-            color: var(--charcoal-light);
-            font-weight: 500;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .platform-name {
+        .platform-badge {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--charcoal);
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: default;
         }
 
-        .platform-name:hover {
-            color: var(--ember);
-            transform: translateY(-1px);
-        }
-
-        .platform-separator {
-            color: var(--border);
+        .platform-badge:hover {
+            border-color: var(--ember);
+            background: var(--ember-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.15);
         }
 
         /* Install */
@@ -607,12 +621,21 @@
             }
 
             .platforms {
-                padding: 60px 0;
+                padding: 60px 0 80px;
             }
 
-            .platforms-list {
-                font-size: 16px;
-                gap: 20px 12px;
+            .platforms-header {
+                font-size: 14px;
+                margin-bottom: 32px;
+            }
+
+            .platforms-grid {
+                gap: 12px;
+            }
+
+            .platform-badge {
+                padding: 10px 20px;
+                font-size: 15px;
             }
 
             .install {
@@ -700,6 +723,15 @@
                 min-width: 35px;
             }
 
+            .platforms-grid {
+                gap: 10px;
+            }
+
+            .platform-badge {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
             .value-headline {
                 font-size: 26px;
             }
@@ -778,39 +810,30 @@
         </div>
     </section>
 
-    <!-- Value Prop -->
+    <!-- Platforms -->
     <div class="container">
+        <section class="platforms">
+            <div class="platforms-header">11 Platforms Tracked</div>
+            <div class="platforms-grid">
+                <div class="platform-badge">Vercel</div>
+                <div class="platform-badge">OpenRouter</div>
+                <div class="platform-badge">OpenAI</div>
+                <div class="platform-badge">Anthropic</div>
+                <div class="platform-badge">Neon</div>
+                <div class="platform-badge">PlanetScale</div>
+                <div class="platform-badge">DigitalOcean</div>
+                <div class="platform-badge">Turso</div>
+                <div class="platform-badge">Upstash</div>
+                <div class="platform-badge">MongoDB</div>
+                <div class="platform-badge">Twilio</div>
+            </div>
+        </section>
+
+        <!-- Value Prop -->
         <section class="value-prop">
             <h2 class="value-headline">
                 11 dashboards <span class="value-arrow">→</span> 1 question <span class="value-arrow">→</span> 0 surprises
             </h2>
-        </section>
-
-        <!-- Platforms -->
-        <section class="platforms">
-            <div class="platforms-list">
-                <span class="platform-name">Vercel</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">OpenRouter</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">OpenAI</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">Anthropic</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">Neon</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">PlanetScale</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">DigitalOcean</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">Turso</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">Upstash</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">MongoDB</span>
-                <span class="platform-separator">•</span>
-                <span class="platform-name">Twilio</span>
-            </div>
         </section>
     </div>
 
