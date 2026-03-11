@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "burnmeter": {
+      "command": "/opt/homebrew/bin/python3.11",
+      "args": ["/Users/michaelpalermiti/ClaudeCode/burnmeter/src/server.py"],
+      "env": {
+        "PYTHONPATH": "/Users/michaelpalermiti/ClaudeCode/burnmeter/src"
+      }
+    }
+  }
+}

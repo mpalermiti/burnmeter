@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burnmeter – Multi-cloud cost tracking for Claude</title>
+    <meta name="description" content="Track your infrastructure burn rate across 11 platforms in one place. Open source MCP server for Claude.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafaf9;
+            --text: #1c1917;
+            --text-muted: #57534e;
+            --border: #e7e5e4;
+            --accent: #0f172a;
+            --code-bg: #f5f5f4;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .cta {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .cta:hover {
+            opacity: 0.9;
+        }
+
+        section {
+            margin: 80px 0;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 17px;
+        }
+
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .box {
+            padding: 32px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .box h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .box p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .platform {
+            padding: 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 24px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 24px 0;
+        }
+
+        code {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            color: var(--text);
+        }
+
+        .step {
+            margin-bottom: 32px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        footer {
+            margin: 120px 0 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .platforms {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Burnmeter</h1>
+            <p class="tagline">Track your infrastructure burn rate across 11 platforms in one place</p>
+            <a href="https://github.com/mpalermiti/burnmeter" class="cta">Get Started on GitHub</a>
+        </header>
+
+        <section>
+            <div class="problem-solution">
+                <div class="box">
+                    <h3>The Problem</h3>
+                    <p>You're running on Vercel, OpenRouter, Anthropic, Neon, and five other platforms. Each has its own billing dashboard. You have no idea what you're actually spending.</p>
+                </div>
+                <div class="box">
+                    <h3>The Solution</h3>
+                    <p>Burnmeter is an MCP server that aggregates costs across all your platforms. Ask Claude "what's my burn this month?" and get a real answer.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Supported Platforms</h2>
+            <div class="platforms">
+                <div class="platform">Vercel</div>
+                <div class="platform">OpenRouter</div>
+                <div class="platform">OpenAI</div>
+                <div class="platform">Anthropic</div>
+                <div class="platform">Neon</div>
+                <div class="platform">PlanetScale</div>
+                <div class="platform">DigitalOcean</div>
+                <div class="platform">Turso</div>
+                <div class="platform">Upstash</div>
+                <div class="platform">MongoDB Atlas</div>
+                <div class="platform">Twilio</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Quick Start</h2>
+
+            <div class="step">
+                <h3><span class="step-number">1</span> Install</h3>
+<pre><code>git clone https://github.com/mpalermiti/burnmeter.git
+cd burnmeter
+python3 -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install -e .</code></pre>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">2</span> Configure</h3>
+<pre><code>cp .env.example .env
+# Add your API keys to .env</code></pre>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">3</span> Add to Claude</h3>
+                <p>Add to your <code>~/.claude/mcp_config.json</code>:</p>
+<pre><code>{
+  "mcpServers": {
+    "burnmeter": {
+      "command": "/path/to/burnmeter/venv/bin/python",
+      "args": ["/path/to/burnmeter/src/server.py"],
+      "env": {
+        "PYTHONPATH": "/path/to/burnmeter/src"
+      }
+    }
+  }
+}</code></pre>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">4</span> Use with Claude</h3>
+<pre><code>You: "What's my total infrastructure spend this month?"
+Claude: *uses burnmeter to aggregate across all platforms*</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Features</h2>
+            <div class="box">
+                <p><strong>Multi-platform aggregation</strong> – See total costs across all services in one query</p>
+                <p><strong>Budget monitoring</strong> – Check if you're over budget before the bill arrives</p>
+                <p><strong>Platform breakdowns</strong> – Drill into specific platforms for detailed cost data</p>
+                <p><strong>Intelligent caching</strong> – 1-hour TTL to respect API rate limits</p>
+                <p><strong>Open source</strong> – Apache 2.0 license, contribute providers for your stack</p>
+            </div>
+        </section>
+
+        <section style="text-align: center;">
+            <a href="https://github.com/mpalermiti/burnmeter" class="cta">View on GitHub</a>
+        </section>
+
+        <footer>
+            <p>Built by <a href="https://michaelp.ai">Michael Palermiti</a></p>
+            <p>Licensed under <a href="https://github.com/mpalermiti/burnmeter/blob/main/LICENSE">Apache 2.0</a></p>
+        </footer>
+    </div>
+</body>
+</html>
