@@ -1,25 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <style>
-      .gauge-bg { fill: none; stroke-width: 12; stroke-linecap: round; }
-      .gauge-low { stroke: #86efac; }
-      .gauge-mid { stroke: #fbbf24; }
-      .gauge-high { stroke: #ea580c; }
-    </style>
-  </defs>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="#ea580c"/>
 
-  <!-- Gauge arc background -->
-  <circle cx="50" cy="50" r="35" fill="#fafaf9" stroke="#e7e5e4" stroke-width="2"/>
-
-  <!-- Gauge segments (low, mid, high) -->
-  <path class="gauge-bg gauge-low" d="M 20,65 A 35,35 0 0,1 35,25" />
-  <path class="gauge-bg gauge-mid" d="M 35,25 A 35,35 0 0,1 65,25" />
-  <path class="gauge-bg gauge-high" d="M 65,25 A 35,35 0 0,1 80,65" />
-
-  <!-- Center dot -->
-  <circle cx="50" cy="50" r="6" fill="#292524"/>
-
-  <!-- Needle pointing to high zone -->
-  <line x1="50" y1="50" x2="72" y2="38" stroke="#292524" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="50" cy="50" r="4" fill="#ea580c"/>
+  <!-- Letter B -->
+  <path d="M 30 25 L 30 75 L 55 75 C 65 75 72 68 72 58 C 72 53 69 49 65 47 C 68 45 70 41 70 37 C 70 27 63 25 55 25 Z M 42 35 L 53 35 C 57 35 60 37 60 41 C 60 45 57 47 53 47 L 42 47 Z M 42 55 L 55 55 C 59 55 62 57 62 61 C 62 65 59 67 55 67 L 42 67 Z"
+        fill="white"/>
 </svg>
