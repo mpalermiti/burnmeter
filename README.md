@@ -30,12 +30,12 @@ Burnmeter aggregates costs across your entire stack in real-time. One command. O
 ```
 You: "Am I over my $500/month budget?"
 
-Claude: "You've spent $427.82 this month (85.6% of budget):
-  - Vercel: $89.50 (functions + bandwidth)
-  - Neon: $127.30 (compute + storage)
-  - OpenAI: $156.20 (GPT-4 + embeddings)
-  - Anthropic: $54.82 (Claude API)
-  - Remaining: $72.18
+Claude: "You've spent $451.00 this month (90.2% of budget):
+  - Vercel: $95.00 (functions + bandwidth)
+  - Neon: $135.00 (compute + storage)
+  - OpenAI: $165.00 (GPT-4 + embeddings)
+  - Anthropic: $56.00 (Claude API)
+  - Remaining: $49.00
 
   You're on track. Neon usage up 40% from last month."
 ```
