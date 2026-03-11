@@ -1,6 +1,6 @@
 # 🔥 burnmeter
 
-**Stop logging into 11 dashboards. Know your burn rate in one question.**
+**Stop logging into 11 platform dashboards. Know your burn rate in one question.**
 
 Multi-cloud cost aggregator MCP server that connects Claude Code to your entire infrastructure stack. Built for indie builders shipping fast while watching their runway.
 
