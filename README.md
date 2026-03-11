@@ -4,6 +4,8 @@
 
 Multi-cloud cost aggregator MCP server that connects Claude Code to your entire infrastructure stack. Built for indie builders shipping fast while watching their runway.
 
+🌐 **[mpalermiti.github.io/burnmeter](https://mpalermiti.github.io/burnmeter/)**
+
 ---
 
 ## The Problem
