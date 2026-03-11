@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>burnmeter – 11 dashboards → 1 question → 0 surprises</title>
     <meta name="description" content="Track infrastructure costs across Vercel, Neon, OpenAI, and 8 other platforms via Claude Code. Know your burn rate in one question.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,15 +18,17 @@
         :root {
             --ember: #ea580c;
             --ember-dark: #c2410c;
+            --ember-light: #fdba74;
             --charcoal: #1c1917;
             --charcoal-mid: #44403c;
             --charcoal-light: #78716c;
             --white: #ffffff;
             --off-white: #fafaf9;
+            --border: #e7e5e4;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.5;
             color: var(--charcoal);
             background: var(--white);
@@ -37,70 +42,86 @@
             padding: 0 32px;
         }
 
-        /* Hero - Massive Impact */
+        /* Hero */
         .hero {
-            min-height: 85vh;
+            min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 120px 0 80px;
-        }
-
-        .fire-icon {
-            font-size: 48px;
-            margin-bottom: 24px;
-            display: inline-block;
+            padding: 80px 0;
         }
 
         .hero-amount {
-            font-size: 112px;
+            font-size: 128px;
             font-weight: 800;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.055em;
             line-height: 0.9;
             color: var(--ember);
-            margin-bottom: 32px;
+            margin-bottom: 40px;
             font-variant-numeric: tabular-nums;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-text {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 500;
             color: var(--charcoal-mid);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             letter-spacing: -0.02em;
+            animation: fadeInUp 0.6s ease 0.1s backwards;
         }
 
         .hero-subtext {
-            font-size: 28px;
-            font-weight: 500;
+            font-size: 32px;
+            font-weight: 600;
             color: var(--charcoal);
-            margin-bottom: 56px;
+            margin-bottom: 64px;
             letter-spacing: -0.02em;
+            animation: fadeInUp 0.6s ease 0.2s backwards;
         }
 
         .cta-primary {
             display: inline-block;
-            padding: 18px 48px;
+            padding: 20px 48px;
             background: var(--ember);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             font-size: 18px;
-            transition: all 0.15s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: -0.01em;
+            animation: fadeInUp 0.6s ease 0.3s backwards;
         }
 
         .cta-primary:hover {
             background: var(--ember-dark);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(234, 88, 12, 0.25);
+        }
+
+        .cta-primary:active {
+            transform: translateY(0);
         }
 
         /* Visual Comparison */
         .comparison {
-            padding: 120px 0;
+            padding: 140px 0;
             background: var(--off-white);
-            margin: 0 -32px;
+            margin: 0 -100vw;
+            padding-left: 100vw;
+            padding-right: 100vw;
         }
 
         .comparison-inner {
@@ -110,128 +131,180 @@
         }
 
         .comparison-label {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: var(--charcoal-light);
             margin-bottom: 32px;
         }
 
         .tabs-visual {
-            display: grid;
-            grid-template-columns: repeat(11, 1fr);
-            gap: 8px;
-            margin-bottom: 16px;
+            display: flex;
+            gap: 6px;
+            margin-bottom: 24px;
+            align-items: flex-end;
+            height: 120px;
         }
 
         .tab {
-            aspect-ratio: 3/4;
+            flex: 1;
             background: white;
-            border: 2px solid #e7e5e4;
-            border-radius: 4px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 8px;
-            font-size: 10px;
-            color: var(--charcoal-light);
-            font-weight: 500;
+            border: 2px solid var(--border);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+
+        .tab:nth-child(1) { height: 85%; }
+        .tab:nth-child(2) { height: 92%; }
+        .tab:nth-child(3) { height: 78%; }
+        .tab:nth-child(4) { height: 95%; }
+        .tab:nth-child(5) { height: 88%; }
+        .tab:nth-child(6) { height: 82%; }
+        .tab:nth-child(7) { height: 90%; }
+        .tab:nth-child(8) { height: 76%; }
+        .tab:nth-child(9) { height: 87%; }
+        .tab:nth-child(10) { height: 93%; }
+        .tab:nth-child(11) { height: 80%; }
+
+        .tab:hover {
+            border-color: var(--ember);
+            transform: translateY(-4px);
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
         }
 
         .time-waste {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--charcoal-mid);
-            margin-bottom: 64px;
+            margin-bottom: 80px;
             font-weight: 500;
         }
 
         .arrow-down {
-            font-size: 40px;
             text-align: center;
-            color: var(--ember);
-            margin: 40px 0;
+            margin: 64px 0;
+        }
+
+        .arrow-svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--ember);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
         }
 
         .claude-convo {
-            background: white;
-            border: 2px solid var(--charcoal);
-            border-radius: 8px;
-            padding: 32px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            background: var(--charcoal);
+            border-radius: 12px;
+            padding: 40px;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
             font-size: 15px;
             line-height: 1.8;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
         }
 
         .convo-you {
-            color: var(--charcoal-mid);
-            margin-bottom: 16px;
+            color: #a8a29e;
+            margin-bottom: 20px;
         }
 
         .convo-claude {
-            color: var(--charcoal);
+            color: #fafaf9;
+        }
+
+        .convo-prompt {
+            color: #a8a29e;
+        }
+
+        .convo-response {
+            color: #fafaf9;
         }
 
         .convo-amount {
-            color: var(--ember);
+            color: var(--ember-light);
             font-weight: 700;
         }
 
         .time-saved {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--ember);
-            margin-top: 24px;
+            margin-top: 32px;
             font-weight: 600;
         }
 
         /* Value Prop */
         .value-prop {
-            padding: 120px 0;
+            padding: 140px 0;
             text-align: center;
         }
 
         .value-headline {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
             line-height: 1.1;
-            margin-bottom: 64px;
+            margin-bottom: 80px;
             color: var(--charcoal);
         }
 
         .value-arrow {
             color: var(--ember);
-            margin: 0 16px;
+            margin: 0 20px;
+            font-weight: 800;
         }
 
         /* Platforms */
         .platforms {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .platforms-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 32px 24px;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             color: var(--charcoal-light);
             font-weight: 500;
         }
 
         .platform-name {
-            transition: color 0.15s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
         }
 
         .platform-name:hover {
             color: var(--ember);
+            transform: translateY(-1px);
+        }
+
+        .platform-separator {
+            color: var(--border);
         }
 
         /* Install */
         .install {
-            padding: 120px 0;
+            padding: 140px 0;
             background: var(--off-white);
-            margin: 0 -32px;
+            margin: 0 -100vw;
+            padding-left: 100vw;
+            padding-right: 100vw;
         }
 
         .install-inner {
@@ -241,51 +314,69 @@
         }
 
         .install-headline {
-            font-size: 40px;
-            font-weight: 700;
+            font-size: 48px;
+            font-weight: 800;
             letter-spacing: -0.03em;
-            margin-bottom: 48px;
+            margin-bottom: 56px;
             color: var(--charcoal);
+        }
+
+        .code-container {
+            position: relative;
         }
 
         pre {
             background: var(--charcoal);
             color: #fafaf9;
-            border-radius: 8px;
-            padding: 32px;
+            border-radius: 12px;
+            padding: 40px;
             overflow-x: auto;
             font-size: 15px;
-            line-height: 1.7;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            line-height: 1.8;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
             margin-bottom: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .code-comment {
+            color: #78716c;
+        }
+
+        .code-string {
+            color: #86efac;
+        }
+
+        .code-keyword {
+            color: #fdba74;
         }
 
         .install-note {
             font-size: 15px;
             color: var(--charcoal-light);
-            margin-top: 32px;
+            margin-top: 40px;
         }
 
         .install-note a {
             color: var(--ember);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.2s;
         }
 
         .install-note a:hover {
-            text-decoration: underline;
+            color: var(--ember-dark);
         }
 
         /* Final CTA */
         .final-cta {
-            padding: 160px 0;
+            padding: 180px 0;
             text-align: center;
         }
 
         .final-headline {
-            font-size: 56px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -0.045em;
             line-height: 1.1;
             margin-bottom: 24px;
             color: var(--charcoal);
@@ -294,36 +385,171 @@
         .final-subtext {
             font-size: 20px;
             color: var(--charcoal-light);
-            margin-bottom: 48px;
+            margin-bottom: 56px;
+            font-weight: 500;
         }
 
         /* Footer */
         footer {
-            padding: 80px 0 60px;
-            border-top: 1px solid #e7e5e4;
-            text-align: center;
+            padding: 80px 0 64px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .footer-link {
             font-size: 15px;
             color: var(--charcoal-light);
-            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .footer-link a {
             color: var(--charcoal);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.2s;
         }
 
         .footer-link a:hover {
             color: var(--ember);
         }
 
-        /* Responsive */
+        /* Mobile Responsive - High Craft */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 60px 0;
+            }
+
             .hero-amount {
                 font-size: 72px;
+                margin-bottom: 32px;
+            }
+
+            .hero-text,
+            .hero-subtext {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+
+            .hero-subtext {
+                margin-bottom: 48px;
+            }
+
+            .cta-primary {
+                padding: 18px 40px;
+                font-size: 17px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .comparison {
+                padding: 100px 0;
+            }
+
+            .comparison-inner {
+                padding: 0 24px;
+            }
+
+            .tabs-visual {
+                height: 80px;
+                gap: 4px;
+            }
+
+            .tab:nth-child(n+9) {
+                display: none;
+            }
+
+            .time-waste {
+                font-size: 16px;
+                margin-bottom: 60px;
+            }
+
+            .claude-convo {
+                padding: 24px;
+                font-size: 14px;
+            }
+
+            .value-prop {
+                padding: 100px 0;
+            }
+
+            .value-headline {
+                font-size: 36px;
+                margin-bottom: 60px;
+            }
+
+            .value-arrow {
+                display: block;
+                margin: 16px 0;
+                font-size: 28px;
+            }
+
+            .platforms {
+                padding: 80px 0;
+            }
+
+            .platforms-list {
+                font-size: 17px;
+                gap: 24px 16px;
+            }
+
+            .install {
+                padding: 100px 0;
+            }
+
+            .install-inner {
+                padding: 0 24px;
+            }
+
+            .install-headline {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            pre {
+                font-size: 13px;
+                padding: 24px;
+                line-height: 1.7;
+            }
+
+            .final-cta {
+                padding: 120px 0;
+            }
+
+            .final-headline {
+                font-size: 40px;
+            }
+
+            .final-subtext {
+                font-size: 18px;
+                margin-bottom: 48px;
+            }
+
+            footer {
+                padding: 60px 0 48px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-amount {
+                font-size: 64px;
             }
 
             .hero-text,
@@ -332,33 +558,15 @@
             }
 
             .value-headline {
-                font-size: 32px;
-            }
-
-            .value-arrow {
-                display: block;
-                margin: 16px 0;
-            }
-
-            .tabs-visual {
-                grid-template-columns: repeat(6, 1fr);
-            }
-
-            .tab:nth-child(n+7) {
-                display: none;
+                font-size: 28px;
             }
 
             .final-headline {
-                font-size: 36px;
+                font-size: 32px;
             }
 
             .install-headline {
                 font-size: 28px;
-            }
-
-            pre {
-                font-size: 13px;
-                padding: 24px;
             }
         }
     </style>
@@ -367,12 +575,11 @@
     <div class="container">
         <!-- Hero -->
         <section class="hero">
-            <span class="fire-icon">🔥</span>
             <div class="hero-amount">$427.82</div>
             <div class="hero-text">It took 2 hours to figure that out.</div>
             <div class="hero-subtext">It should take 1 question.</div>
             <div>
-                <a href="https://github.com/mpalermiti/burnmeter" class="cta-primary">Get Started →</a>
+                <a href="https://github.com/mpalermiti/burnmeter" class="cta-primary">Get Started</a>
             </div>
         </section>
     </div>
@@ -382,31 +589,38 @@
         <div class="comparison-inner">
             <div class="comparison-label">BEFORE</div>
             <div class="tabs-visual">
-                <div class="tab">Vercel</div>
-                <div class="tab">Neon</div>
-                <div class="tab">OpenAI</div>
-                <div class="tab">Anthropic</div>
-                <div class="tab">OpenRouter</div>
-                <div class="tab">PlanetScale</div>
-                <div class="tab">DigitalOcean</div>
-                <div class="tab">Turso</div>
-                <div class="tab">Upstash</div>
-                <div class="tab">MongoDB</div>
-                <div class="tab">Twilio</div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
             </div>
             <div class="time-waste">11 dashboards • 2 hours • export CSVs • build spreadsheet</div>
 
-            <div class="arrow-down">↓</div>
+            <div class="arrow-down">
+                <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
 
             <div class="comparison-label">AFTER</div>
             <div class="claude-convo">
-                <div class="convo-you"><strong>You:</strong> "What's my burn this month?"</div>
-                <div class="convo-claude"><strong>Claude:</strong> You've spent <span class="convo-amount">$427.82</span> this month across 11 platforms:<br>
-                • Vercel: $89.50 (functions + bandwidth)<br>
-                • Neon: $127.30 (compute + storage)<br>
-                • OpenAI: $156.20 (GPT-4 + embeddings)<br>
-                • Anthropic: $54.82 (Claude API)<br>
-                + 7 more platforms</div>
+                <div class="convo-you"><span class="convo-prompt">You:</span> "What's my burn this month?"</div>
+                <div class="convo-claude">
+                    <span class="convo-prompt">Claude:</span> <span class="convo-response">You've spent <span class="convo-amount">$427.82</span> this month across 11 platforms:</span><br>
+                    <span class="convo-response">• Vercel: $89.50 (functions + bandwidth)</span><br>
+                    <span class="convo-response">• Neon: $127.30 (compute + storage)</span><br>
+                    <span class="convo-response">• OpenAI: $156.20 (GPT-4 + embeddings)</span><br>
+                    <span class="convo-response">• Anthropic: $54.82 (Claude API)</span><br>
+                    <span class="convo-response">+ 7 more platforms</span>
+                </div>
             </div>
             <div class="time-saved">1 question • 3 seconds</div>
         </div>
@@ -424,25 +638,25 @@
         <section class="platforms">
             <div class="platforms-list">
                 <span class="platform-name">Vercel</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">OpenRouter</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">OpenAI</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">Anthropic</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">Neon</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">PlanetScale</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">DigitalOcean</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">Turso</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">Upstash</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">MongoDB</span>
-                <span>•</span>
+                <span class="platform-separator">•</span>
                 <span class="platform-name">Twilio</span>
             </div>
         </section>
@@ -452,21 +666,26 @@
     <section class="install">
         <div class="install-inner">
             <h2 class="install-headline">Get started in 60 seconds</h2>
-            <pre><code>git clone https://github.com/mpalermiti/burnmeter.git
+            <div class="code-container">
+                <pre><code><span class="code-comment"># Clone and install</span>
+git clone https://github.com/mpalermiti/burnmeter.git
 cd burnmeter && pip install -e .
-cp .env.example .env  # Add your API keys
 
-# Add to ~/.claude/mcp_config.json
+<span class="code-comment"># Add your API keys</span>
+cp .env.example .env
+
+<span class="code-comment"># Configure Claude Code (~/.claude/mcp_config.json)</span>
 {
-  "mcpServers": {
-    "burnmeter": {
-      "command": "python",
-      "args": ["src/server.py"]
+  <span class="code-string">"mcpServers"</span>: {
+    <span class="code-string">"burnmeter"</span>: {
+      <span class="code-string">"command"</span>: <span class="code-string">"python"</span>,
+      <span class="code-string">"args"</span>: [<span class="code-string">"src/server.py"</span>]
     }
   }
 }</code></pre>
+            </div>
             <p class="install-note">
-                Full installation guide → <a href="https://github.com/mpalermiti/burnmeter#installation">README</a>
+                Full setup guide → <a href="https://github.com/mpalermiti/burnmeter#installation">README</a>
             </p>
         </div>
     </section>
@@ -476,13 +695,15 @@ cp .env.example .env  # Add your API keys
         <section class="final-cta">
             <h2 class="final-headline">Know your burn.<br>Build with confidence.</h2>
             <p class="final-subtext">Open source MCP server for Claude Code</p>
-            <a href="https://github.com/mpalermiti/burnmeter" class="cta-primary">View on GitHub →</a>
+            <a href="https://github.com/mpalermiti/burnmeter" class="cta-primary">View on GitHub</a>
         </section>
 
         <!-- Footer -->
         <footer>
-            <p class="footer-link">Built by <a href="https://michaelp.ai">Michael Palermiti</a></p>
-            <p class="footer-link"><a href="https://github.com/mpalermiti/burnmeter/blob/main/LICENSE">Apache 2.0</a> • Free forever</p>
+            <div class="footer-content">
+                <p class="footer-link">Built by <a href="https://michaelp.ai">Michael Palermiti</a></p>
+                <p class="footer-link"><a href="https://github.com/mpalermiti/burnmeter/blob/main/LICENSE">Apache 2.0</a> • Free forever</p>
+            </div>
         </footer>
     </div>
 </body>
