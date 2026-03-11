@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+
+  <!-- Main text -->
+  <text x="600" y="280" font-family="Inter, sans-serif" font-size="96" font-weight="800" fill="#ea580c" text-anchor="middle" letter-spacing="-4">
+    $451.00
+  </text>
+
+  <text x="600" y="360" font-family="Inter, sans-serif" font-size="36" font-weight="700" fill="#44403c" text-anchor="middle">
+    11 dashboards → 1 question → 0 surprises
+  </text>
+
+  <!-- Bottom text -->
+  <text x="600" y="520" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#78716c" text-anchor="middle">
+    burnmeter
+  </text>
+
+  <text x="600" y="560" font-family="Inter, sans-serif" font-size="20" font-weight="500" fill="#a8a29e" text-anchor="middle">
+    Track infrastructure costs via Claude Code
+  </text>
+</svg>
