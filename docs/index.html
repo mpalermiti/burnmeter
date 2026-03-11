@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burnmeter – Multi-cloud cost tracking for Claude</title>
-    <meta name="description" content="Track your infrastructure burn rate across 11 platforms in one place. Open source MCP server for Claude.">
+    <title>Burnmeter – Know your burn rate in one question</title>
+    <meta name="description" content="Stop logging into 11 platform dashboards. Track your infrastructure burn rate via Claude Code.">
     <style>
         * {
             margin: 0;
@@ -13,19 +13,22 @@
         }
 
         :root {
-            --bg: #fafaf9;
-            --text: #1c1917;
-            --text-muted: #57534e;
-            --border: #e7e5e4;
-            --accent: #0f172a;
-            --code-bg: #f5f5f4;
+            --ember: #ea580c;
+            --ember-dark: #c2410c;
+            --ember-light: #fed7aa;
+            --ember-bg: #fff7ed;
+            --charcoal: #292524;
+            --charcoal-light: #57534e;
+            --warm-white: #fefce8;
+            --warm-bg: #fffbeb;
+            --border-warm: #fed7aa;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
+            color: var(--charcoal);
+            background: var(--warm-bg);
             -webkit-font-smoothing: antialiased;
         }
 
@@ -36,37 +39,59 @@
         }
 
         header {
-            padding: 80px 0 60px;
+            padding: 100px 0 80px;
             text-align: center;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            margin: 0 -24px 80px;
+        }
+
+        .fire {
+            font-size: 64px;
+            margin-bottom: 8px;
+            display: block;
+            animation: flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
         }
 
         h1 {
-            font-size: 48px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-            color: var(--accent);
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--charcoal);
         }
 
         .tagline {
-            font-size: 20px;
-            color: var(--text-muted);
-            margin-bottom: 32px;
+            font-size: 22px;
+            color: var(--charcoal-light);
+            margin-bottom: 40px;
+            font-weight: 500;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta {
             display: inline-block;
-            padding: 12px 32px;
-            background: var(--accent);
+            padding: 16px 40px;
+            background: var(--ember);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: opacity 0.2s;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 17px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
         }
 
         .cta:hover {
-            opacity: 0.9;
+            background: var(--ember-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(234, 88, 12, 0.4);
         }
 
         section {
@@ -74,41 +99,67 @@
         }
 
         h2 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            letter-spacing: -0.01em;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+            color: var(--charcoal);
         }
 
         p {
-            color: var(--text-muted);
+            color: var(--charcoal-light);
             margin-bottom: 16px;
             font-size: 17px;
+        }
+
+        .hero-stat {
+            text-align: center;
+            margin: 60px 0;
+            padding: 48px;
+            background: white;
+            border: 2px solid var(--border-warm);
+            border-radius: 12px;
+        }
+
+        .hero-stat .big-number {
+            font-size: 72px;
+            font-weight: 800;
+            color: var(--ember);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .hero-stat .stat-label {
+            font-size: 18px;
+            color: var(--charcoal-light);
+            font-weight: 500;
         }
 
         .problem-solution {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 32px;
             margin: 60px 0;
         }
 
         .box {
             padding: 32px;
             background: white;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 2px solid var(--border-warm);
+            border-radius: 12px;
         }
 
         .box h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--ember);
         }
 
         .box p {
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.7;
+            color: var(--charcoal);
         }
 
         .platforms {
@@ -119,62 +170,101 @@
         }
 
         .platform {
-            padding: 16px;
+            padding: 20px 16px;
             background: white;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border: 2px solid var(--ember-light);
+            border-radius: 8px;
             text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--charcoal);
+            transition: all 0.2s;
+        }
+
+        .platform:hover {
+            border-color: var(--ember);
+            transform: translateY(-2px);
         }
 
         pre {
-            background: var(--code-bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            background: var(--charcoal);
+            color: var(--warm-white);
+            border-radius: 8px;
             padding: 24px;
             overflow-x: auto;
             font-size: 14px;
             line-height: 1.6;
             margin: 24px 0;
+            border: 2px solid var(--ember-dark);
         }
 
         code {
             font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-            color: var(--text);
         }
 
         .step {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--charcoal);
         }
 
         .step-number {
             display: inline-block;
-            width: 28px;
-            height: 28px;
-            background: var(--accent);
+            width: 32px;
+            height: 32px;
+            background: var(--ember);
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 28px;
-            font-size: 14px;
-            font-weight: 600;
+            line-height: 32px;
+            font-size: 16px;
+            font-weight: 700;
             margin-right: 12px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .feature-box {
+            padding: 24px;
+            background: white;
+            border-left: 4px solid var(--ember);
+            border-radius: 8px;
+        }
+
+        .feature-box strong {
+            color: var(--ember);
+            font-weight: 700;
+        }
+
+        .feature-box p {
+            margin: 0;
+            font-size: 15px;
+            color: var(--charcoal);
         }
 
         footer {
             margin: 120px 0 60px;
             padding-top: 40px;
-            border-top: 1px solid var(--border);
+            border-top: 2px solid var(--border-warm);
             text-align: center;
-            color: var(--text-muted);
+            color: var(--charcoal-light);
             font-size: 14px;
         }
 
         footer a {
-            color: var(--accent);
+            color: var(--ember);
             text-decoration: none;
+            font-weight: 600;
         }
 
         footer a:hover {
@@ -183,16 +273,25 @@
 
         @media (max-width: 640px) {
             h1 {
-                font-size: 36px;
+                font-size: 40px;
+            }
+
+            .fire {
+                font-size: 48px;
             }
 
             .tagline {
-                font-size: 18px;
+                font-size: 19px;
             }
 
-            .problem-solution {
+            .hero-stat .big-number {
+                font-size: 56px;
+            }
+
+            .problem-solution,
+            .features-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 20px;
             }
 
             .platforms {
@@ -204,26 +303,32 @@
 <body>
     <div class="container">
         <header>
-            <h1>Burnmeter</h1>
-            <p class="tagline">Track your infrastructure burn rate across 11 platforms in one place</p>
-            <a href="https://github.com/mpalermiti/burnmeter" class="cta">Get Started on GitHub</a>
+            <span class="fire">🔥</span>
+            <h1>burnmeter</h1>
+            <p class="tagline">Stop logging into 11 platform dashboards.<br>Know your burn rate in one question.</p>
+            <a href="https://github.com/mpalermiti/burnmeter" class="cta">Get Started</a>
         </header>
+
+        <div class="hero-stat">
+            <div class="big-number">11</div>
+            <div class="stat-label">platforms tracked • one command</div>
+        </div>
 
         <section>
             <div class="problem-solution">
                 <div class="box">
-                    <h3>The Problem</h3>
-                    <p>You're running on Vercel, OpenRouter, Anthropic, Neon, and five other platforms. Each has its own billing dashboard. You have no idea what you're actually spending.</p>
+                    <h3>Before</h3>
+                    <p>You're running on Vercel, Neon, OpenAI, Anthropic, and 7 other platforms. Every month: log into 11 dashboards, export CSVs, build a spreadsheet, discover surprise bills.</p>
                 </div>
                 <div class="box">
-                    <h3>The Solution</h3>
-                    <p>Burnmeter is an MCP server that aggregates costs across all your platforms. Ask Claude "what's my burn this month?" and get a real answer.</p>
+                    <h3>After</h3>
+                    <p>Ask Claude: "What's my burn this month?" Get real-time costs across your entire stack in one answer. No dashboards. No spreadsheets.</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>Supported Platforms</h2>
+            <h2>Your Stack, One View</h2>
             <div class="platforms">
                 <div class="platform">Vercel</div>
                 <div class="platform">OpenRouter</div>
@@ -234,7 +339,7 @@
                 <div class="platform">DigitalOcean</div>
                 <div class="platform">Turso</div>
                 <div class="platform">Upstash</div>
-                <div class="platform">MongoDB Atlas</div>
+                <div class="platform">MongoDB</div>
                 <div class="platform">Twilio</div>
             </div>
         </section>
@@ -245,53 +350,65 @@
             <div class="step">
                 <h3><span class="step-number">1</span> Install</h3>
 <pre><code>git clone https://github.com/mpalermiti/burnmeter.git
-cd burnmeter
-python3 -m venv venv
-source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+cd burnmeter && python3 -m venv venv
+source venv/bin/activate
 pip install -e .</code></pre>
             </div>
 
             <div class="step">
-                <h3><span class="step-number">2</span> Configure</h3>
+                <h3><span class="step-number">2</span> Add API Keys</h3>
 <pre><code>cp .env.example .env
-# Add your API keys to .env</code></pre>
+# Add keys for platforms you use</code></pre>
             </div>
 
             <div class="step">
-                <h3><span class="step-number">3</span> Add to Claude</h3>
-                <p>Add to your <code>~/.claude/mcp_config.json</code>:</p>
-<pre><code>{
+                <h3><span class="step-number">3</span> Connect to Claude</h3>
+<pre><code># Add to ~/.claude/mcp_config.json
+{
   "mcpServers": {
     "burnmeter": {
-      "command": "/path/to/burnmeter/venv/bin/python",
-      "args": ["/path/to/burnmeter/src/server.py"],
-      "env": {
-        "PYTHONPATH": "/path/to/burnmeter/src"
-      }
+      "command": "/path/to/venv/bin/python",
+      "args": ["/path/to/src/server.py"]
     }
   }
 }</code></pre>
             </div>
 
             <div class="step">
-                <h3><span class="step-number">4</span> Use with Claude</h3>
-<pre><code>You: "What's my total infrastructure spend this month?"
-Claude: *uses burnmeter to aggregate across all platforms*</code></pre>
+                <h3><span class="step-number">4</span> Ask Claude</h3>
+<pre><code>"What's my burn this month?"
+"Am I over my $500 budget?"
+"Show me my top 3 costs"</code></pre>
             </div>
         </section>
 
         <section>
-            <h2>Features</h2>
-            <div class="box">
-                <p><strong>Multi-platform aggregation</strong> – See total costs across all services in one query</p>
-                <p><strong>Budget monitoring</strong> – Check if you're over budget before the bill arrives</p>
-                <p><strong>Platform breakdowns</strong> – Drill into specific platforms for detailed cost data</p>
-                <p><strong>Intelligent caching</strong> – 1-hour TTL to respect API rate limits</p>
-                <p><strong>Open source</strong> – Apache 2.0 license, contribute providers for your stack</p>
+            <h2>Built for Builders</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <p><strong>Real-time aggregation</strong> – Total costs across all platforms, instantly</p>
+                </div>
+                <div class="feature-box">
+                    <p><strong>Budget alerts</strong> – Know if you're over budget before the bill hits</p>
+                </div>
+                <div class="feature-box">
+                    <p><strong>Platform breakdowns</strong> – Drill into any service for detailed costs</p>
+                </div>
+                <div class="feature-box">
+                    <p><strong>Intelligent caching</strong> – Respects API limits, updates every hour</p>
+                </div>
+                <div class="feature-box">
+                    <p><strong>Open source</strong> – Apache 2.0, add providers for your stack</p>
+                </div>
+                <div class="feature-box">
+                    <p><strong>Zero cost</strong> – Free forever, runs locally on your machine</p>
+                </div>
             </div>
         </section>
 
-        <section style="text-align: center;">
+        <section style="text-align: center; margin: 100px 0;">
+            <h2 style="margin-bottom: 16px;">Know your burn. Build with confidence.</h2>
+            <p style="font-size: 18px; margin-bottom: 32px;">Open source MCP server for Claude Code</p>
             <a href="https://github.com/mpalermiti/burnmeter" class="cta">View on GitHub</a>
         </section>
 
