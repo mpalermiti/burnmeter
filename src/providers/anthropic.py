@@ -18,8 +18,8 @@ class AnthropicProvider(BaseProvider):
 
     def validate_auth(self) -> bool:
         """Check if Anthropic API key is present and is an admin key."""
-        # Admin API keys start with sk-ant-admin
-        return bool(self.api_key and self.api_key.startswith("sk-ant-"))
+        # Admin API keys start with sk-ant-admin-
+        return bool(self.api_key and self.api_key.startswith("sk-ant-admin-"))
 
     async def get_costs(self, start_date: str, end_date: str) -> NormalizedCost:
         """
