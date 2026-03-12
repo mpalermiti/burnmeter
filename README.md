@@ -601,7 +601,7 @@ A: API keys are stored locally in your `.env` file. No data is sent to external 
 **Q: What if a platform doesn't have a billing API?**
 A: Some platforms (Cloudflare, Render, Fly.io) don't expose billing via API. For these, you'll need to check their dashboards manually. We're tracking which platforms add APIs.
 
-**Q: Do I need all 11 API keys?**
+**Q: Do I need all 12 API keys?**
 A: No! Only configure platforms you actually use. Burnmeter will skip unconfigured platforms.
 
 **Q: How accurate are the costs?**
