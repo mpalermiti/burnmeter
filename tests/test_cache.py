@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
-from cache import Cache
+from cache import CostCache
 from providers.base import NormalizedCost, CostBreakdown
 
 
@@ -13,7 +13,7 @@ class TestCache:
     @pytest.fixture
     def cache(self):
         """Create fresh cache instance."""
-        return Cache(ttl_seconds=3600)
+        return CostCache(ttl_seconds=3600)
 
     @pytest.fixture
     def mock_cost(self):
@@ -45,7 +45,7 @@ class TestCache:
     def test_cache_expiration(self, cache, mock_cost):
         """Test cache expiration after TTL."""
         # Set cache with 1 second TTL
-        short_cache = Cache(ttl_seconds=1)
+        short_cache = CostCache(ttl_seconds=1)
         short_cache.set("vercel", "2026-03-01", "2026-03-07", mock_cost)
 
         # Verify it's there
