@@ -378,13 +378,19 @@
             display: flex;
             gap: 16px;
             align-items: flex-start;
+            padding-left: 24px;
+            position: relative;
         }
 
-        .feature-icon {
-            font-size: 24px;
-            color: var(--ember);
-            flex-shrink: 0;
-            margin-top: 2px;
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background: var(--ember);
+            border-radius: 50%;
         }
 
         .feature-content {
@@ -949,7 +955,6 @@
             <h2 class="features-headline">What you can ask</h2>
             <div class="features-grid">
                 <div class="feature-item">
-                    <div class="feature-icon">💰</div>
                     <div class="feature-content">
                         <div class="feature-question">"What's my burn this month?"</div>
                         <div class="feature-description">Real-time costs across all platforms with service-level breakdown</div>
@@ -957,7 +962,6 @@
                 </div>
 
                 <div class="feature-item">
-                    <div class="feature-icon">📊</div>
                     <div class="feature-content">
                         <div class="feature-question">"What will I spend this month?"</div>
                         <div class="feature-description">Forecast monthly total based on daily burn rate with confidence levels</div>
@@ -965,7 +969,6 @@
                 </div>
 
                 <div class="feature-item">
-                    <div class="feature-icon">📈</div>
                     <div class="feature-content">
                         <div class="feature-question">"How does this month compare to last?"</div>
                         <div class="feature-description">Month-over-month trends with percentage changes per platform</div>
@@ -973,7 +976,6 @@
                 </div>
 
                 <div class="feature-item">
-                    <div class="feature-icon">🎯</div>
                     <div class="feature-content">
                         <div class="feature-question">"Am I over my $500 budget?"</div>
                         <div class="feature-description">Budget tracking with percentage used and remaining balance</div>
@@ -981,7 +983,6 @@
                 </div>
 
                 <div class="feature-item">
-                    <div class="feature-icon">🔍</div>
                     <div class="feature-content">
                         <div class="feature-question">"Show me Vercel breakdown"</div>
                         <div class="feature-description">Detailed cost breakdown by service for any platform</div>
@@ -989,7 +990,6 @@
                 </div>
 
                 <div class="feature-item">
-                    <div class="feature-icon">✅</div>
                     <div class="feature-content">
                         <div class="feature-question">"Which platforms are configured?"</div>
                         <div class="feature-description">Check auth status for all 12 platforms at a glance</div>
