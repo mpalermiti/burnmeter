@@ -2,7 +2,7 @@
 
 > **Know your burn. Build with confidence.**
 
-Stop logging into 14 platform dashboards. Track infrastructure costs across Vercel, Railway, Neon, OpenAI, and 10 other platforms via Claude Code. Ask one question, get your total burn rate.
+Stop logging into 12 platform dashboards. Track infrastructure costs across Vercel, Railway, Neon, OpenAI, and 8 other platforms via Claude Code. Ask one question, get your total burn rate.
 
 🌐 **[mpalermiti.github.io/burnmeter](https://mpalermiti.github.io/burnmeter/)**
 
@@ -46,7 +46,7 @@ No dashboards. No spreadsheets. Just answers.
 
 ---
 
-## Supported Platforms (14)
+## Supported Platforms (12)
 
 Burnmeter connects to the platforms indie builders actually use:
 
@@ -70,10 +70,6 @@ Burnmeter connects to the platforms indie builders actually use:
 ### 📱 Communications
 - **Twilio** - SMS, voice, WhatsApp APIs
 
-### 🔧 Backend Services
-- **Clerk** - Authentication, user management, MAU-based pricing
-- **Convex** - Backend-as-a-service with database, functions, real-time sync
-
 **Total addressable burn:** If you're a typical indie SaaS, this covers 80-95% of your monthly infrastructure spend.
 
 ---
@@ -93,7 +89,7 @@ You're adding services constantly. Burnmeter scales with you. New database? New 
 
 | Tool | Platforms | Integration | Cost |
 |------|-----------|-------------|------|
-| **burnmeter** | 14 (hosting, AI, DB, comms, backend) | Claude Code MCP | Free, open source |
+| **burnmeter** | 12 (hosting, AI, DB, comms) | Claude Code MCP | Free, open source |
 | AWS Cost Explorer | AWS only | Web dashboard | Included with AWS |
 | SpendScope | 3 AI APIs only | Web dashboard | Paid service |
 | CloudHealth | Enterprise clouds | Complex setup | $$$ |
@@ -252,20 +248,6 @@ Get API keys for each platform you want to track. **You only need keys for servi
 - Get Account SID → Add to `.env` as `TWILIO_ACCOUNT_SID`
 - Get Auth Token → Add to `.env` as `TWILIO_AUTH_TOKEN`
 
-### 🔧 Backend Services
-
-**Clerk**
-- Dashboard: https://dashboard.clerk.com/
-- Go to API Keys → Copy Secret Key
-- Add to `.env` as `CLERK_SECRET_KEY`
-- Note: Billing API may require contacting Clerk support to confirm endpoint availability
-
-**Convex**
-- Dashboard: https://dashboard.convex.dev/
-- Select your project → Settings → Deploy Keys
-- Create deploy key → Add to `.env` as `CONVEX_DEPLOY_KEY`
-- Note: Billing API may require contacting Convex support to confirm endpoint availability
-
 ---
 
 ## Usage
@@ -343,7 +325,7 @@ Burnmeter exposes 6 tools to Claude:
 ```
 burnmeter/
 ├── src/
-│   ├── server.py              # FastMCP server, 6 tools, 14 providers
+│   ├── server.py              # FastMCP server, 6 tools, 12 providers
 │   ├── cache.py               # In-memory cache (1hr TTL)
 │   ├── providers/
 │   │   ├── base.py            # Abstract BaseProvider class
@@ -358,9 +340,7 @@ burnmeter/
 │   │   ├── turso.py           # Turso organization usage
 │   │   ├── mongodb_atlas.py   # MongoDB Cost Explorer (polling)
 │   │   ├── upstash.py         # Upstash stats API
-│   │   ├── twilio.py          # Twilio usage records
-│   │   ├── clerk.py           # Clerk authentication/user billing
-│   │   └── convex.py          # Convex backend platform
+│   │   └── twilio.py          # Twilio usage records
 ├── .env.example               # Template with all required keys
 ├── .gitignore
 ├── README.md
@@ -726,11 +706,22 @@ A: It already is self-hosted - it runs locally on your machine. If you want to r
 - [x] Add Railway provider
 - [x] Forecasting: "At this rate, you'll spend $X this month"
 - [x] Month-over-month comparison
-- [ ] Add Fly.io provider (blocked: no billing API available)
+- [x] Comprehensive test suite with GitHub Actions CI/CD
+
+**Pending API Availability**
+
+These platforms don't expose billing data via API yet. **Help us convince them:**
+
+- **Clerk** (authentication/user management) - No public billing API endpoint confirmed. If you use Clerk, ask their support team to expose billing data programmatically.
+- **Convex** (backend-as-a-service) - No public billing API endpoint confirmed. If you use Convex, request API access to usage/billing data.
+- **Fly.io** (infrastructure) - Confirmed no billing API available. Vote for this feature on Fly.io's roadmap.
+
+*When these APIs become available, we'll add them immediately.*
 
 **v0.3 (Next)**
 - [ ] Stripe provider (track processing fees)
 - [ ] Supabase provider
+- [ ] Render provider
 - [ ] Export to CSV/PDF
 - [ ] Budget alerts via webhook
 
