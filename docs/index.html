@@ -57,6 +57,17 @@
             --white: #ffffff;
             --off-white: #fafaf9;
             --border: #e7e5e4;
+
+            /* Type Scale */
+            --text-xs: 13px;
+            --text-sm: 15px;
+            --text-base: 17px;
+            --text-lg: 20px;
+            --text-xl: 28px;
+            --text-2xl: 42px;
+            --text-3xl: 56px;
+            --text-4xl: 72px;
+            --text-display: 96px;
         }
 
         body {
@@ -84,7 +95,7 @@
         }
 
         .hero-headline {
-            font-size: 72px;
+            font-size: var(--text-4xl);
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -0.04em;
@@ -113,7 +124,7 @@
         }
 
         .hero-amount {
-            font-size: 128px;
+            font-size: var(--text-display);
             font-weight: 800;
             letter-spacing: -0.055em;
             line-height: 0.9;
@@ -324,7 +335,7 @@
         }
 
         .value-headline {
-            font-size: 56px;
+            font-size: var(--text-3xl);
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.1;
@@ -360,7 +371,7 @@
         }
 
         .features-headline {
-            font-size: 42px;
+            font-size: var(--text-2xl);
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 56px;
@@ -466,7 +477,7 @@
         }
 
         .install-headline {
-            font-size: 48px;
+            font-size: var(--text-2xl);
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 56px;
@@ -475,6 +486,30 @@
 
         .code-container {
             position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            background: var(--charcoal-mid);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-button:hover {
+            background: var(--charcoal-light);
+        }
+
+        .copy-button.copied {
+            background: var(--ember);
         }
 
         pre {
@@ -526,7 +561,7 @@
         }
 
         .final-headline {
-            font-size: 64px;
+            font-size: var(--text-3xl);
             font-weight: 800;
             letter-spacing: -0.045em;
             line-height: 1.1;
@@ -1004,7 +1039,8 @@
         <div class="install-inner">
             <h2 class="install-headline">Get started in 60 seconds</h2>
             <div class="code-container">
-                <pre><code><span class="code-comment"># Clone and install</span>
+                <button class="copy-button" onclick="copyCode()">Copy</button>
+                <pre><code id="install-code"><span class="code-comment"># Clone and install</span>
 git clone https://github.com/mpalermiti/burnmeter.git
 cd burnmeter && pip install -e .
 
@@ -1043,5 +1079,50 @@ cp .env.example .env
             </div>
         </footer>
     </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode() {
+            const code = document.getElementById('install-code').textContent;
+            const button = document.querySelector('.copy-button');
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Subtle fade-in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply fade-in to major sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.comparison, .platforms, .features, .install, .final-cta');
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
