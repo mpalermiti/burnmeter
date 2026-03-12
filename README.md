@@ -2,7 +2,7 @@
 
 > **Know your burn. Build with confidence.**
 
-Stop logging into 11 platform dashboards. Track infrastructure costs across Vercel, Neon, OpenAI, and 8 other platforms via Claude Code. Ask one question, get your total burn rate.
+Stop logging into 12 platform dashboards. Track infrastructure costs across Vercel, Railway, Neon, OpenAI, and 9 other platforms via Claude Code. Ask one question, get your total burn rate.
 
 🌐 **[mpalermiti.github.io/burnmeter](https://mpalermiti.github.io/burnmeter/)**
 
@@ -15,7 +15,7 @@ Multi-cloud cost aggregator MCP server for indie builders shipping fast while wa
 You're building. You're shipping. You're using Vercel for frontend, Neon for database, OpenAI for AI, Twilio for SMS, and five other services.
 
 Every month, you spend 2 hours:
-- Opening 11+ dashboards
+- Opening 12+ dashboards
 - Exporting CSVs
 - Building a spreadsheet
 - Calculating your actual burn rate
@@ -46,12 +46,13 @@ No dashboards. No spreadsheets. Just answers.
 
 ---
 
-## Supported Platforms (11)
+## Supported Platforms (12)
 
 Burnmeter connects to the platforms indie builders actually use:
 
 ### 🌐 Hosting & Infrastructure
 - **Vercel** - Frontend hosting, serverless functions
+- **Railway** - Full-stack hosting, databases, ephemeral environments
 - **DigitalOcean** - Droplets, App Platform, managed databases
 
 ### 🤖 AI APIs
@@ -88,7 +89,7 @@ You're adding services constantly. Burnmeter scales with you. New database? New 
 
 | Tool | Platforms | Integration | Cost |
 |------|-----------|-------------|------|
-| **burnmeter** | 11 (hosting, AI, DB, comms) | Claude Code MCP | Free, open source |
+| **burnmeter** | 12 (hosting, AI, DB, comms) | Claude Code MCP | Free, open source |
 | AWS Cost Explorer | AWS only | Web dashboard | Included with AWS |
 | SpendScope | 3 AI APIs only | Web dashboard | Paid service |
 | CloudHealth | Enterprise clouds | Complex setup | $$$ |
@@ -160,6 +161,12 @@ Get API keys for each platform you want to track. **You only need keys for servi
 - Create token → Add to `.env` as `VERCEL_TOKEN`
 - Permissions: Read billing data
 
+**Railway**
+- Dashboard: https://railway.app/account/tokens
+- Create token → Add to `.env` as `RAILWAY_API_KEY`
+- Permissions: Read project usage and billing
+- Note: Uses GraphQL API at backboard.railway.com
+
 **DigitalOcean**
 - Dashboard: https://cloud.digitalocean.com/account/api/tokens
 - Generate New Token → Add to `.env` as `DIGITALOCEAN_TOKEN`
@@ -230,11 +237,13 @@ Once configured, ask Claude about your costs in natural language:
 "How much did I spend on AI this month?"
 ```
 
-### Budget Management
+### Budget Management & Forecasting
 ```
 "Am I over my $500 budget?"
-"What's my burn rate trend?"
-"Alert me if I go over $600 this month"
+"What will I spend this month at my current rate?"
+"Forecast my monthly spend"
+"Compare this month to last month"
+"What's my daily burn rate?"
 ```
 
 ### Platform-Specific
@@ -247,7 +256,7 @@ Once configured, ask Claude about your costs in natural language:
 
 ### MCP Tools (Under the Hood)
 
-Burnmeter exposes 4 tools to Claude:
+Burnmeter exposes 6 tools to Claude:
 
 **`get_total_costs(period, platforms)`**
 - Aggregate costs across all or specific platforms
@@ -266,9 +275,21 @@ Burnmeter exposes 4 tools to Claude:
 - Default period: month-to-date
 
 **`list_platforms()`**
-- Show all 11 platforms and their auth status
+- Show all 12 platforms and their auth status
 - Useful for debugging config issues
 - Returns: Which platforms are configured and ready
+
+**`forecast_monthly_spend()`**
+- Forecast total spending for current month based on usage rate
+- Calculates daily burn rate from MTD spending and projects to month end
+- Returns: Projected monthly total, daily rate, confidence level, per-platform forecasts
+- Confidence: Low (<7 days), Medium (7-14 days), High (15+ days)
+
+**`compare_month_over_month()`**
+- Compare current month spending to previous month
+- Shows total and per-platform changes with percentage deltas
+- Returns: Current vs previous month costs, absolute and percent changes
+- Useful for identifying cost trends and anomalies
 
 ---
 
@@ -279,11 +300,12 @@ Burnmeter exposes 4 tools to Claude:
 ```
 burnmeter/
 ├── src/
-│   ├── server.py              # FastMCP server, 4 tools, 11 providers
+│   ├── server.py              # FastMCP server, 6 tools, 12 providers
 │   ├── cache.py               # In-memory cache (1hr TTL)
 │   ├── providers/
 │   │   ├── base.py            # Abstract BaseProvider class
 │   │   ├── vercel.py          # Vercel billing API
+│   │   ├── railway.py         # Railway GraphQL API
 │   │   ├── digitalocean.py    # DigitalOcean billing history
 │   │   ├── openrouter.py      # OpenRouter credits API
 │   │   ├── openai.py          # OpenAI usage API
@@ -343,6 +365,7 @@ Every provider returns the same structure:
 
 **Provider Patterns:**
 - **Simple REST** (Vercel, OpenAI, Twilio): Single GET request
+- **GraphQL** (Railway): POST with query, structured response
 - **Multi-endpoint** (PlanetScale, DigitalOcean): Get invoices + line items
 - **Polling** (MongoDB Atlas): Async query, poll for results
 - **Calculated** (Neon, Turso): Usage metrics → estimate costs
@@ -353,7 +376,7 @@ Every provider returns the same structure:
 
 ### Adding a New Provider
 
-Want to add support for Railway? Fly.io? Stripe fees? Here's how:
+Want to add support for Stripe fees? Supabase? Render? Here's how:
 
 **1. Check if the platform has a billing API**
 
@@ -367,11 +390,11 @@ Required:
 **2. Create provider file**
 
 ```bash
-touch src/providers/railway.py
+touch src/providers/stripe.py
 ```
 
 ```python
-"""Railway cost provider."""
+"""Stripe cost provider."""
 
 import os
 from datetime import datetime
@@ -379,66 +402,56 @@ import httpx
 from providers.base import BaseProvider, CostBreakdown, NormalizedCost
 
 
-class RailwayProvider(BaseProvider):
+class StripeProvider(BaseProvider):
     def __init__(self):
-        super().__init__("railway")
-        self.api_key = os.getenv("RAILWAY_API_KEY")
-        self.base_url = "https://backboard.railway.com/graphql/v2"
+        super().__init__("stripe")
+        self.api_key = os.getenv("STRIPE_API_KEY")
+        self.base_url = "https://api.stripe.com/v1"
 
     def validate_auth(self) -> bool:
-        """Check if Railway API key is present."""
+        """Check if Stripe API key is present."""
         return bool(self.api_key)
 
     async def get_costs(self, start_date: str, end_date: str) -> NormalizedCost:
         """
-        Fetch Railway costs using GraphQL API.
+        Fetch Stripe processing fees using Balance Transactions API.
 
-        API: POST https://backboard.railway.com/graphql/v2
-        Query: { billingUsage(startDate: "...", endDate: "...") }
+        API: GET /v1/balance_transactions?created[gte]=...&created[lte]=...
+        Filter: type=payment, extract fees
         """
         if not self.validate_auth():
-            raise ValueError("RAILWAY_API_KEY not set")
+            raise ValueError("STRIPE_API_KEY not set")
 
         headers = {
             "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
         }
 
-        query = """
-        query GetUsage($startDate: String!, $endDate: String!) {
-          billingUsage(startDate: $startDate, endDate: $endDate) {
-            total
-            breakdown {
-              service
-              cost
-            }
-          }
+        # Convert dates to Unix timestamps
+        start_ts = int(datetime.fromisoformat(start_date).timestamp())
+        end_ts = int(datetime.fromisoformat(end_date).timestamp())
+
+        params = {
+            "type": "payment",
+            "created[gte]": start_ts,
+            "created[lte]": end_ts,
+            "limit": 100,
         }
-        """
 
         async with httpx.AsyncClient() as client:
-            response = await client.post(
-                self.base_url,
+            response = await client.get(
+                f"{self.base_url}/balance_transactions",
                 headers=headers,
-                json={
-                    "query": query,
-                    "variables": {
-                        "startDate": start_date,
-                        "endDate": end_date,
-                    },
-                },
+                params=params,
                 timeout=30.0,
             )
             response.raise_for_status()
             data = response.json()
 
-            # Extract costs from response
-            usage = data["data"]["billingUsage"]
-            total = float(usage["total"])
+            # Sum up all processing fees
+            total = sum(txn["fee"] / 100 for txn in data["data"])  # Convert cents to dollars
 
             breakdown = [
-                CostBreakdown(service=item["service"], cost=float(item["cost"]))
-                for item in usage["breakdown"]
+                CostBreakdown(service="processing_fees", cost=total)
             ]
 
             return NormalizedCost(
@@ -455,33 +468,33 @@ class RailwayProvider(BaseProvider):
 **3. Register in server.py**
 
 ```python
-from providers.railway import RailwayProvider
+from providers.stripe import StripeProvider
 
 PROVIDERS = {
     # ... existing providers
-    "railway": RailwayProvider(),
+    "stripe": StripeProvider(),
 }
 ```
 
 **4. Add to .env.example**
 
 ```bash
-# Railway
-RAILWAY_API_KEY=
+# Stripe
+STRIPE_API_KEY=
 ```
 
 **5. Update README**
 
-Add Railway to the platform list and configuration section.
+Add Stripe to the platform list and configuration section.
 
 **6. Test**
 
 ```bash
-# Add your Railway API key to .env
-RAILWAY_API_KEY=your_key_here
+# Add your Stripe API key to .env
+STRIPE_API_KEY=your_key_here
 
 # Ask Claude
-"What did I spend on Railway this month?"
+"What did I spend on Stripe fees this month?"
 ```
 
 ### Provider Complexity Levels
@@ -531,14 +544,14 @@ Burnmeter is built for the indie builder community. Contributions welcome!
 ### High-Value Contributions
 
 **Add Provider Support:**
-- Railway (requested)
-- Fly.io (requested)
+- Fly.io (blocked: no billing API available yet)
 - Render
 - Supabase
 - Netlify
 - Cloudflare (dashboard-only currently)
 - Stripe (transaction fees)
 - GitHub Actions (compute minutes)
+- Heroku
 
 **Improve Existing Providers:**
 - Upstash: Implement service-specific endpoints (currently placeholder)
@@ -546,11 +559,11 @@ Burnmeter is built for the indie builder community. Contributions welcome!
 - Handle pagination for large result sets
 
 **New Features:**
-- Forecasting: "At this rate, what will I spend this month?"
-- Trending: "Your Vercel costs are up 40% from last month"
 - Alerts: Webhook when spending exceeds threshold
 - Export: Generate CSV/PDF reports
-- Comparison: Compare month-over-month, year-over-year
+- Year-over-year comparison
+- Anomaly detection: "Your Vercel costs spiked 300% yesterday"
+- Budget recommendations based on historical trends
 
 **Better Error Handling:**
 - Retry logic for transient API failures
@@ -621,7 +634,7 @@ A: It already is self-hosted - it runs locally on your machine. If you want to r
 - ❌ Web dashboard, not CLI-native
 - ❌ Paid service
 
-**burnmeter:** 11 platforms, free, open source
+**burnmeter:** 12 platforms, free, open source
 
 ### vs CloudHealth/Cloudability
 - ✅ Enterprise-grade cost management
@@ -643,13 +656,13 @@ A: It already is self-hosted - it runs locally on your machine. If you want to r
 
 ## Roadmap
 
-**v0.2 (Next)**
-- [ ] Add Railway provider
-- [ ] Add Fly.io provider (if API becomes available)
-- [ ] Forecasting: "At this rate, you'll spend $X this month"
-- [ ] Month-over-month comparison
+**v0.2 (Current)**
+- [x] Add Railway provider
+- [x] Forecasting: "At this rate, you'll spend $X this month"
+- [x] Month-over-month comparison
+- [ ] Add Fly.io provider (blocked: no billing API available)
 
-**v0.3**
+**v0.3 (Next)**
 - [ ] Stripe provider (track processing fees)
 - [ ] Supabase provider
 - [ ] Export to CSV/PDF
@@ -685,7 +698,7 @@ VP of Product at Microsoft, building [Amby](https://michaelp.ai) and [Glosignal]
 This started with a simple question: **"What's my monthly burn?"**
 
 As an indie builder running multiple projects (Amby, Glosignal, Outlook MCP), I found myself:
-- Opening 11+ dashboards every month
+- Opening 12+ dashboards every month
 - Exporting CSVs
 - Building spreadsheets
 - Calculating burn rate manually
