@@ -706,10 +706,7 @@ Free to use for personal and commercial projects.
 
 ## Author
 
-Built by **Michael Palermiti** ([@mpalermiti](https://github.com/mpalermiti))
-VP of Product at Microsoft, building [Amby](https://michaelp.ai) and [Glosignal](https://glosignal.com)
-
-🌐 [michaelp.ai](https://michaelp.ai)
+Built by **Michael Palermiti** — https://michaelp.ai
 
 ---
 
