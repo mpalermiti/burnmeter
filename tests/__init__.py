@@ -1,0 +1,1 @@
+"""Burnmeter test suite."""

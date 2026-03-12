@@ -546,18 +546,39 @@ STRIPE_API_KEY=your_key_here
 
 ### Testing
 
+Burnmeter has comprehensive test coverage with mocked HTTP responses for all providers.
+
 ```bash
 # Install dev dependencies
 pip install -e ".[dev]"
 
-# Run linter
+# Run all tests
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/test_providers.py -v
+pytest tests/test_server.py -v
+pytest tests/test_cache.py -v
+
+# Run with coverage report
+pytest tests/ --cov=src --cov-report=html
+```
+
+**Test Suite:**
+- **test_providers.py**: Mocked HTTP tests for all providers (Vercel, Railway, OpenAI, Anthropic, etc.) with success/error scenarios using AsyncMock
+- **test_server.py**: MCP tool tests including period parsing, cost aggregation, budget checking, cache hit/miss scenarios
+- **test_cache.py**: Cache expiration with mocked datetime, key generation, platform/date differentiation
+
+**CI/CD:**
+Tests run automatically on every push and PR via GitHub Actions across Python 3.10, 3.11, 3.12.
+
+**Code Quality:**
+```bash
+# Linting
 ruff check src/
 
-# Format code
+# Auto-formatting
 ruff format src/
-
-# Run tests (coming soon)
-pytest
 ```
 
 ---
