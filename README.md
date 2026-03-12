@@ -720,9 +720,7 @@ Built by **Michael Palermiti** — https://michaelp.ai
 This started with a simple question: **"What's my monthly burn?"**
 
 As an indie builder running multiple projects, I found myself:
-- Opening 12+ dashboards every month
-- Exporting CSVs
-- Building spreadsheets
+- Opening multiple dashboards
 - Calculating burn rate manually
 - Getting surprised by bills
 
