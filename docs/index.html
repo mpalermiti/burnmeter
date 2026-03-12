@@ -343,6 +343,68 @@
             padding: 80px 0 100px;
         }
 
+        /* Features */
+        .features {
+            padding: 100px 0 120px;
+            background: var(--off-white);
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding-left: calc(50vw - 50%);
+            padding-right: calc(50vw - 50%);
+        }
+
+        .features-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .features-headline {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 56px;
+            color: var(--charcoal);
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            color: var(--ember);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-description {
+            font-size: 15px;
+            color: var(--charcoal-mid);
+            line-height: 1.5;
+        }
+
         .platforms-header {
             text-align: center;
             font-size: 16px;
@@ -639,6 +701,32 @@
                 padding: 60px 0 80px;
             }
 
+            .features {
+                padding: 80px 0;
+            }
+
+            .features-inner {
+                padding: 0 20px;
+            }
+
+            .features-headline {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .feature-question {
+                font-size: 16px;
+            }
+
+            .feature-description {
+                font-size: 14px;
+            }
+
             .platforms-header {
                 font-size: 14px;
                 margin-bottom: 32px;
@@ -854,6 +942,62 @@
             </h2>
         </section>
     </div>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-inner">
+            <h2 class="features-headline">What you can ask</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"What's my burn this month?"</div>
+                        <div class="feature-description">Real-time costs across all platforms with service-level breakdown</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"What will I spend this month?"</div>
+                        <div class="feature-description">Forecast monthly total based on daily burn rate with confidence levels</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"How does this month compare to last?"</div>
+                        <div class="feature-description">Month-over-month trends with percentage changes per platform</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"Am I over my $500 budget?"</div>
+                        <div class="feature-description">Budget tracking with percentage used and remaining balance</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"Show me Vercel breakdown"</div>
+                        <div class="feature-description">Detailed cost breakdown by service for any platform</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-content">
+                        <div class="feature-question">"Which platforms are configured?"</div>
+                        <div class="feature-description">Check auth status for all 12 platforms at a glance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Install -->
     <section class="install">
