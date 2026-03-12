@@ -113,8 +113,13 @@ You're adding services constantly. Burnmeter scales with you. New database? New 
 ### Setup
 
 ```bash
-# Navigate to project
-cd ~/ClaudeCode/burnmeter
+# Clone the repository
+git clone https://github.com/mpalermiti/burnmeter.git
+cd burnmeter
+
+# (Optional) Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -e .
@@ -166,7 +171,7 @@ Replace `/ABSOLUTE/PATH/TO/burnmeter` with the output from `pwd`.
 }
 ```
 
-Restart Claude Code. You'll see burnmeter tools available.
+Restart Claude Code/Desktop. You'll see burnmeter tools available.
 
 ---
 
@@ -593,7 +598,7 @@ Burnmeter is built for the indie builder community. Contributions welcome!
 ### Contribution Guidelines
 
 1. **Fork the repo**
-2. **Create a feature branch** (`git checkout -b add-railway-provider`)
+2. **Create a feature branch** (`git checkout -b add-stripe-provider`)
 3. **Test your provider** with real API credentials
 4. **Update README** with configuration instructions
 5. **Submit PR** with:
@@ -714,7 +719,7 @@ Built by **Michael Palermiti** — https://michaelp.ai
 
 This started with a simple question: **"What's my monthly burn?"**
 
-As an indie builder running multiple projects (Amby, Glosignal, Outlook MCP), I found myself:
+As an indie builder running multiple projects, I found myself:
 - Opening 12+ dashboards every month
 - Exporting CSVs
 - Building spreadsheets
