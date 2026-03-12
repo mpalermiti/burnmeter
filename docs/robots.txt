@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mpalermiti.github.io/burnmeter/sitemap.xml
