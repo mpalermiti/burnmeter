@@ -246,17 +246,12 @@
             border-radius: 2px;
         }
 
-        .tab::after {
-            content: attr(data-platform);
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-90deg);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--charcoal-light);
-            white-space: nowrap;
-            letter-spacing: 0.02em;
+        .platform-names {
+            font-size: 13px;
+            color: var(--charcoal-mid);
+            margin-top: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .time-waste {
@@ -598,9 +593,10 @@
                 height: 2px;
             }
 
-            .tab::after {
-                font-size: 9px;
-                bottom: 8px;
+            .platform-names {
+                font-size: 11px;
+                margin-top: 12px;
+                margin-bottom: 16px;
             }
 
             .time-waste {
@@ -792,19 +788,20 @@
         <div class="comparison-inner">
             <div class="comparison-label">BEFORE</div>
             <div class="tabs-visual">
-                <div class="tab" data-platform="Vercel"></div>
-                <div class="tab" data-platform="Railway"></div>
-                <div class="tab" data-platform="OpenAI"></div>
-                <div class="tab" data-platform="Anthropic"></div>
-                <div class="tab" data-platform="Neon"></div>
-                <div class="tab" data-platform="PlanetScale"></div>
-                <div class="tab" data-platform="DigitalOcean"></div>
-                <div class="tab" data-platform="Turso"></div>
-                <div class="tab" data-platform="Upstash"></div>
-                <div class="tab" data-platform="MongoDB"></div>
-                <div class="tab" data-platform="Twilio"></div>
-                <div class="tab" data-platform="OpenRouter"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
+                <div class="tab"></div>
             </div>
+            <div class="platform-names">Vercel, Railway, OpenAI, Anthropic, Neon, PlanetScale, DigitalOcean, Turso, Upstash, MongoDB, Twilio, OpenRouter</div>
             <div class="time-waste">12 dashboards • 2 hours • export CSVs • build spreadsheet</div>
 
             <div class="arrow-down">
