@@ -130,21 +130,41 @@ nano .env
 
 Add to your `~/.claude/mcp_config.json`:
 
+**Option 1: Absolute path (recommended)**
+```bash
+# From inside the burnmeter directory, get the full path:
+pwd
+# Copy the output, then use it below
+```
+
 ```json
 {
   "mcpServers": {
     "burnmeter": {
       "command": "python3",
-      "args": ["/Users/YOUR_USERNAME/ClaudeCode/burnmeter/src/server.py"],
+      "args": ["/ABSOLUTE/PATH/TO/burnmeter/src/server.py"],
       "env": {
-        "PYTHONPATH": "/Users/YOUR_USERNAME/ClaudeCode/burnmeter/src"
+        "PYTHONPATH": "/ABSOLUTE/PATH/TO/burnmeter/src"
       }
     }
   }
 }
 ```
 
-Replace `YOUR_USERNAME` with your actual username.
+Replace `/ABSOLUTE/PATH/TO/burnmeter` with the output from `pwd`.
+
+**Option 2: Relative path (if running from repo root)**
+```json
+{
+  "mcpServers": {
+    "burnmeter": {
+      "command": "python3",
+      "args": ["src/server.py"],
+      "cwd": "/ABSOLUTE/PATH/TO/burnmeter"
+    }
+  }
+}
+```
 
 Restart Claude Code. You'll see burnmeter tools available.
 

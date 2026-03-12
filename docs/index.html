@@ -1051,8 +1051,9 @@ cp .env.example .env
 {
   <span class="code-string">"mcpServers"</span>: {
     <span class="code-string">"burnmeter"</span>: {
-      <span class="code-string">"command"</span>: <span class="code-string">"python"</span>,
-      <span class="code-string">"args"</span>: [<span class="code-string">"src/server.py"</span>]
+      <span class="code-string">"command"</span>: <span class="code-string">"python3"</span>,
+      <span class="code-string">"args"</span>: [<span class="code-string">"src/server.py"</span>],
+      <span class="code-string">"cwd"</span>: <span class="code-string">"/path/to/burnmeter"</span>
     }
   }
 }</code></pre>
