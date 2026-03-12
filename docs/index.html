@@ -246,6 +246,19 @@
             border-radius: 2px;
         }
 
+        .tab::after {
+            content: attr(data-platform);
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-90deg);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--charcoal-light);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+
         .time-waste {
             font-size: 17px;
             color: var(--charcoal-mid);
@@ -585,6 +598,11 @@
                 height: 2px;
             }
 
+            .tab::after {
+                font-size: 9px;
+                bottom: 8px;
+            }
+
             .time-waste {
                 font-size: 15px;
                 margin-bottom: 60px;
@@ -774,18 +792,18 @@
         <div class="comparison-inner">
             <div class="comparison-label">BEFORE</div>
             <div class="tabs-visual">
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
-                <div class="tab"></div>
+                <div class="tab" data-platform="Vercel"></div>
+                <div class="tab" data-platform="Railway"></div>
+                <div class="tab" data-platform="OpenAI"></div>
+                <div class="tab" data-platform="Anthropic"></div>
+                <div class="tab" data-platform="Neon"></div>
+                <div class="tab" data-platform="PlanetScale"></div>
+                <div class="tab" data-platform="DigitalOcean"></div>
+                <div class="tab" data-platform="Turso"></div>
+                <div class="tab" data-platform="Upstash"></div>
+                <div class="tab" data-platform="MongoDB"></div>
+                <div class="tab" data-platform="Twilio"></div>
+                <div class="tab" data-platform="OpenRouter"></div>
             </div>
             <div class="time-waste">12 dashboards • 2 hours • export CSVs • build spreadsheet</div>
 
@@ -863,7 +881,7 @@ cp .env.example .env
 }</code></pre>
             </div>
             <p class="install-note">
-                Full setup guide → <a href="https://github.com/mpalermiti/burnmeter#installation">README</a>
+                <a href="https://github.com/mpalermiti/burnmeter" style="font-size: 17px; font-weight: 600;">⭐ Star on GitHub</a> • <a href="https://github.com/mpalermiti/burnmeter#installation">Full setup guide</a>
             </p>
         </div>
     </section>
@@ -879,8 +897,8 @@ cp .env.example .env
         <!-- Footer -->
         <footer>
             <div class="footer-content">
-                <p class="footer-link"><a href="https://michaelp.ai">michaelp.ai</a></p>
-                <p class="footer-link"><a href="https://github.com/mpalermiti/burnmeter/blob/main/LICENSE">Apache 2.0 License</a> • Free forever</p>
+                <p class="footer-link">Built by <a href="https://michaelp.ai">Michael Palermiti</a></p>
+                <p class="footer-link"><a href="https://github.com/mpalermiti/burnmeter">GitHub</a> • <a href="https://github.com/mpalermiti/burnmeter/blob/main/LICENSE">MIT License</a> • Free forever</p>
             </div>
         </footer>
     </div>
