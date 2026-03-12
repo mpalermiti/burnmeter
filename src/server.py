@@ -10,6 +10,8 @@ from mcp.server.fastmcp import FastMCP
 from cache import cache
 from providers.anthropic import AnthropicProvider
 from providers.base import BaseProvider
+from providers.clerk import ClerkProvider
+from providers.convex import ConvexProvider
 from providers.digitalocean import DigitalOceanProvider
 from providers.mongodb_atlas import MongoDBAtlasProvider
 from providers.neon import NeonProvider
@@ -28,20 +30,22 @@ load_dotenv()
 # Initialize MCP server
 mcp = FastMCP("burnmeter")
 
-# Initialize providers (12 platforms)
+# Initialize providers (14 platforms)
 PROVIDERS: dict[str, BaseProvider] = {
     "vercel": VercelProvider(),
+    "railway": RailwayProvider(),
+    "digitalocean": DigitalOceanProvider(),
     "openrouter": OpenRouterProvider(),
     "openai": OpenAIProvider(),
     "anthropic": AnthropicProvider(),
     "neon": NeonProvider(),
     "planetscale": PlanetScaleProvider(),
-    "digitalocean": DigitalOceanProvider(),
     "turso": TursoProvider(),
-    "upstash": UpstashProvider(),
     "mongodb_atlas": MongoDBAtlasProvider(),
+    "upstash": UpstashProvider(),
     "twilio": TwilioProvider(),
-    "railway": RailwayProvider(),
+    "clerk": ClerkProvider(),
+    "convex": ConvexProvider(),
 }
 
 

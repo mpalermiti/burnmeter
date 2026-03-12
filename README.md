@@ -2,7 +2,7 @@
 
 > **Know your burn. Build with confidence.**
 
-Stop logging into 12 platform dashboards. Track infrastructure costs across Vercel, Railway, Neon, OpenAI, and 9 other platforms via Claude Code. Ask one question, get your total burn rate.
+Stop logging into 14 platform dashboards. Track infrastructure costs across Vercel, Railway, Neon, OpenAI, and 10 other platforms via Claude Code. Ask one question, get your total burn rate.
 
 🌐 **[mpalermiti.github.io/burnmeter](https://mpalermiti.github.io/burnmeter/)**
 
@@ -46,7 +46,7 @@ No dashboards. No spreadsheets. Just answers.
 
 ---
 
-## Supported Platforms (12)
+## Supported Platforms (14)
 
 Burnmeter connects to the platforms indie builders actually use:
 
@@ -70,6 +70,10 @@ Burnmeter connects to the platforms indie builders actually use:
 ### 📱 Communications
 - **Twilio** - SMS, voice, WhatsApp APIs
 
+### 🔧 Backend Services
+- **Clerk** - Authentication, user management, MAU-based pricing
+- **Convex** - Backend-as-a-service with database, functions, real-time sync
+
 **Total addressable burn:** If you're a typical indie SaaS, this covers 80-95% of your monthly infrastructure spend.
 
 ---
@@ -89,7 +93,7 @@ You're adding services constantly. Burnmeter scales with you. New database? New 
 
 | Tool | Platforms | Integration | Cost |
 |------|-----------|-------------|------|
-| **burnmeter** | 12 (hosting, AI, DB, comms) | Claude Code MCP | Free, open source |
+| **burnmeter** | 14 (hosting, AI, DB, comms, backend) | Claude Code MCP | Free, open source |
 | AWS Cost Explorer | AWS only | Web dashboard | Included with AWS |
 | SpendScope | 3 AI APIs only | Web dashboard | Paid service |
 | CloudHealth | Enterprise clouds | Complex setup | $$$ |
@@ -248,6 +252,20 @@ Get API keys for each platform you want to track. **You only need keys for servi
 - Get Account SID → Add to `.env` as `TWILIO_ACCOUNT_SID`
 - Get Auth Token → Add to `.env` as `TWILIO_AUTH_TOKEN`
 
+### 🔧 Backend Services
+
+**Clerk**
+- Dashboard: https://dashboard.clerk.com/
+- Go to API Keys → Copy Secret Key
+- Add to `.env` as `CLERK_SECRET_KEY`
+- Note: Billing API may require contacting Clerk support to confirm endpoint availability
+
+**Convex**
+- Dashboard: https://dashboard.convex.dev/
+- Select your project → Settings → Deploy Keys
+- Create deploy key → Add to `.env` as `CONVEX_DEPLOY_KEY`
+- Note: Billing API may require contacting Convex support to confirm endpoint availability
+
 ---
 
 ## Usage
@@ -325,7 +343,7 @@ Burnmeter exposes 6 tools to Claude:
 ```
 burnmeter/
 ├── src/
-│   ├── server.py              # FastMCP server, 6 tools, 12 providers
+│   ├── server.py              # FastMCP server, 6 tools, 14 providers
 │   ├── cache.py               # In-memory cache (1hr TTL)
 │   ├── providers/
 │   │   ├── base.py            # Abstract BaseProvider class
@@ -340,7 +358,9 @@ burnmeter/
 │   │   ├── turso.py           # Turso organization usage
 │   │   ├── mongodb_atlas.py   # MongoDB Cost Explorer (polling)
 │   │   ├── upstash.py         # Upstash stats API
-│   │   └── twilio.py          # Twilio usage records
+│   │   ├── twilio.py          # Twilio usage records
+│   │   ├── clerk.py           # Clerk authentication/user billing
+│   │   └── convex.py          # Convex backend platform
 ├── .env.example               # Template with all required keys
 ├── .gitignore
 ├── README.md
